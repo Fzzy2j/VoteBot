@@ -56,6 +56,28 @@ class Events {
                     System.exit(0)
                 }
             }
+            // Help command
+            if (event.message.content.equals("-votebot help", true)) {
+                RequestBuilder(event.client).shouldBufferRequests(true).doAction {
+                    event.author.orCreatePMChannel.sendMessage("**Bot Setup**\n" +
+                                    "**1)** Simply adding the bot to your server will allow it to add the proper reactions to any message as long as it has permission. " +
+                                    "(if you would like to disable it in a particular channel you can just revoke its access to add reactions in that channel)\n" +
+                                    "**2)** To set up the leaderboard all you need to do is create a text channel called \"leaderboard\" and give the bot permission to send messages in the channel. " +
+                                    "After that you need to remove permission from other users to send messages in the leaderboard channel. " +
+                                    "Only Vote Bot should be able to send messages in this channel."
+                    )
+                    true
+                }.andThen {
+                    event.author.orCreatePMChannel.sendFile(File("directions.jpg"))
+                    true
+                }.andThen {
+                    event.author.orCreatePMChannel.sendFile(File("directions2.jpg"))
+                    true
+                }.andThen {
+                    event.author.orCreatePMChannel.sendMessage("If you need additional help or have questions you can join the help discord at https://discord.gg/jXcjUyf")
+                    true
+                }.execute()
+            }
         }
     }
 
@@ -101,6 +123,6 @@ class Events {
             leaderboard.loadLeaderboard()
             leaderboard.updateLeaderboard()
         }
-        RequestBuffer.request { cli.changePresence(StatusType.ONLINE, ActivityType.PLAYING, "discord.gg/jXcjUyf") }
+        RequestBuffer.request { cli.changePresence(StatusType.ONLINE, ActivityType.PLAYING, "-votebot help") }
     }
 }

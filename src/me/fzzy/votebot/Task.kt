@@ -13,7 +13,7 @@ class Task : Thread() {
         while (running) {
             Thread.sleep(60 * 1000)
 
-            RequestBuffer.request { cli.changePresence(StatusType.ONLINE, ActivityType.PLAYING, "discord.gg/jXcjUyf") }
+            RequestBuffer.request { cli.changePresence(StatusType.ONLINE, ActivityType.PLAYING, "-votebot help") }
             println("auto-save for ${guilds.size} guilds")
             for (leaderboard in guilds) {
                 if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
